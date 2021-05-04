@@ -1,9 +1,11 @@
 const myList= document.createElement("section");
 const section = document.getElementById("object-container");
 const main = document.querySelector("main");
+
 window.onload = () => {
     callApi();
 }
+
 function callApi () {
     fetch('http://localhost:3000/api/teddies')
         .then(response => response.json())
@@ -13,7 +15,7 @@ function callApi () {
     );
 }
 
-//Comentary for this function
+// Function to take the Json element and breaks them into single enteties
 function objectCreator (data) {
     console.log("Function");
     if (Array.isArray(data)) {
@@ -27,7 +29,8 @@ function objectCreator (data) {
                 tab[i].imageUrl, 
                 tab[i].colors, 
                 tab[i].price, 
-                tab[i].description
+                tab[i].description,
+                tab[i]._id
             ));
         }
     } else {
@@ -35,19 +38,21 @@ function objectCreator (data) {
     } 
 }
 
-//Comentary for this function
-function createNewFlexbox(name, url, colors, price, description) {
-    let article = document.createElement("article");
+//Function  to create the article which will fill the dynamic section
+function createNewFlexbox(name, url, colors, price, description,id) {
+    let article = document.createElement("a");
 
+    //Adding image elements
+    article.appendChild(createElementImg(url))
+    //Adding the unique index to each product article
+    article.setAttribute("id", id);
+    article.setAttribute("href", '#');
     //Adding text elements
     article.appendChild(createElementPart("h3", name));
     article.appendChild(createElementPart("p", colors));
     article.appendChild(createElementPart("p", description));
     article.appendChild(createElementPart("p", price));
-
-    //Adding image element
-    article.appendChild(createElementImg(url))
-
+    
     return article;
 }
 
