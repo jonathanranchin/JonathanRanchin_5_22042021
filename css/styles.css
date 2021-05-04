@@ -1,0 +1,22 @@
+body {
+    display: flex;
+}
+main {
+    display: flex;
+}
+section {
+    display: flex;
+    flex-flow: row wrap;
+}
+#object-container article {
+    width : 50%;
+}
+#object-container img {
+    max-width: 240px;
+}
+#object-container p {
+    font-weight: bold;
+}
+#object-container h3 {
+    font-weight: bolder;
+}
