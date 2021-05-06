@@ -37,7 +37,8 @@ a {
     color: black; 
     text-decoration: none;
 }
-h1 {
+h1,
+h2 {
     padding-left: 26%;
     padding-right: 20%;
 }
@@ -46,11 +47,12 @@ section {
     flex-flow: row wrap;
     justify-content: center;
 }
-#object-container a {
+#object-container article {
     width : 30%;
     border-radius: 40px;
     margin: 1%;
     background-color: rgb(242, 232, 240);
+    padding-bottom: 2%;
 }
 #object-container img {
     max-width: 99%;
@@ -65,4 +67,14 @@ section {
     padding-left: 40%;
     padding-right: 40%;
     font-weight: bolder;
+}
+button {
+    margin: 0px 38%;
+    padding: 10px;
+    border-radius: 40px;
+    background: linear-gradient(rgb(143,91,249),rgb(229,165,89));
+    border: thin rgb(242, 232, 240);
+}
+button:hover {
+    transform: scale(1.1);
 }

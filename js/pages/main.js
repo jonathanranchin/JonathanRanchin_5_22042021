@@ -3,7 +3,8 @@ const section = document.getElementById("object-container");
 const main = document.querySelector("main");
 
 window.onload = () => {
-    callApi();
+    callApi();    
+    setUpStorage();
 }
 
 function callApi () {
@@ -17,50 +18,52 @@ function callApi () {
 
 // Function to take the Json element and breaks them into single enteties
 function objectCreator (data) {
-    console.log("Function");
     if (Array.isArray(data)) {
-        console.log("sucess1");
         var tab = Array.from(data);
-        console.log("pass");
         for (var i = 0; i < tab.length; i++) {
-            console.log("success2");
             section.appendChild(createNewFlexbox(
                 tab[i].name, 
                 tab[i].imageUrl, 
-                tab[i].colors, 
+                tab[i].colors[0], 
                 tab[i].price, 
                 tab[i].description,
                 tab[i]._id
             ));
+            addButtonListenersAdder(tab[i]._id);
         }
     } else {
-        console.log("fail at 2");
+        console.log("Failure to load data.");
     } 
 }
 
 //Function  to create the article which will fill the dynamic section
 function createNewFlexbox(name, url, colors, price, description,id) {
-    let article = document.createElement("a");
-
+    let article = document.createElement("article");
     //Adding image elements
     article.appendChild(createElementImg(url))
     //Adding the unique index to each product article
-    article.setAttribute("id", id);
-    article.setAttribute("href", '#');
+    let pageLink = String(id)+".html";
+    article.setAttribute("href", pageLink);
     //Adding text elements
+    price /= 100;
     article.appendChild(createElementPart("h3", name));
     article.appendChild(createElementPart("p", colors));
     article.appendChild(createElementPart("p", description));
     article.appendChild(createElementPart("p", price));
-    
+
+    article.appendChild(createElementPart("button","Commander",id));
+
     return article;
 }
 
 //Function to build text elements
-function createElementPart(type, content) {
+function createElementPart(type, content,id) {
     let element = document.createElement(type);
     element.textContent = content;
-
+    if(type=="button") {
+        element.classList.add("button");
+        element.setAttribute("id", id);
+    }
     return element;
 }
 //Function to build image elements
@@ -73,4 +76,27 @@ function createElementImg(url) {
     }
 
     return img;
+}
+
+function addButtonListenersAdder(id) {
+    document.getElementById(id).addEventListener('click', ($event) => {
+        $event.preventDefault();
+        productWindowOpen(id)   
+      });        
+}
+
+function productWindowOpen(id) {
+    let pageName =  "product.html"+id;
+    window.open(pageName);
+}
+
+function setUpStorage() {
+    myStorage = window.sessionStorage;
+    var cartValue = 0;
+    sessionStorage.setItem('cartValueKey', cartValue);
+}
+
+function order() {
+    Window.open();
+    Window.close();
 }
