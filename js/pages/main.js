@@ -1,6 +1,8 @@
-const myList= document.createElement("section");
+const myList = document.createElement("section");
 const section = document.getElementById("object-container");
+const productSection = document.getElementById("chosen-product");
 const main = document.querySelector("main");
+const apiUrl = "http://localhost:3000/api/teddies";
 
 window.onload = () => {
     callApi();    
@@ -8,18 +10,18 @@ window.onload = () => {
 }
 
 function callApi () {
-    fetch('http://localhost:3000/api/teddies')
+    fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
             objectCreator(data);
         }
     );
 }
-
+var tab = null;
 // Function to take the Json element and breaks them into single enteties
 function objectCreator (data) {
     if (Array.isArray(data)) {
-        var tab = Array.from(data);
+        tab = Array.from(data);
         for (var i = 0; i < tab.length; i++) {
             section.appendChild(createNewFlexbox(
                 tab[i].name, 
@@ -31,6 +33,8 @@ function objectCreator (data) {
             ));
             addButtonListenersAdder(tab[i]._id);
         }
+    } else if(String(data)) {
+        console.log(data);    
     } else {
         console.log("Failure to load data.");
     } 
@@ -66,6 +70,7 @@ function createElementPart(type, content,id) {
     }
     return element;
 }
+
 //Function to build image elements
 function createElementImg(url) {
     let img = document.createElement("img");
@@ -78,25 +83,32 @@ function createElementImg(url) {
     return img;
 }
 
+//Function to add events to buttons on index's buttons
 function addButtonListenersAdder(id) {
     document.getElementById(id).addEventListener('click', ($event) => {
         $event.preventDefault();
-        productWindowOpen(id)   
-      });        
+        window.location.hash = id;  
+        console.log('index.html'+id);
+        document.getElementById("object-container").classList.add("disappear");
+        callApiForProduct(id).then(teddy => console.log(teddy.colors));
+    });          
 }
 
-function productWindowOpen(id) {
-    let pageName =  "product.html"+id;
-    window.open(pageName);
+//Fetches a single product
+function callApiForProduct (id) {
+
+    return fetch(`${apiUrl}/${id}`)
+    .catch((error) => {
+      console.log(error)
+    })
+    .then((httpBodyResponse) => httpBodyResponse.json())
+    .then((productData) => productData)
 }
 
+//Creates session storage for the cart
 function setUpStorage() {
     myStorage = window.sessionStorage;
     var cartValue = 0;
     sessionStorage.setItem('cartValueKey', cartValue);
 }
 
-function order() {
-    Window.open();
-    Window.close();
-}
