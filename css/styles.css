@@ -5,7 +5,7 @@ body,
 main {
     display: flex;
     flex-flow: column nowrap;
-
+    max-width: 100%;
 }
 .disappear {
     display: none;
@@ -81,3 +81,20 @@ button {
 button:hover {
     transform: scale(1.1);
 }
+#chosen-product {
+    max-width: 97%;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+#chosen-product span {
+    width: 40%;
+    margin: 2px;
+}
+#chosen-product article {
+    display: flex;
+    width: 100%;
+}
+#chosen-product img {
+    width: 50%;
+    margin: 2%;
+} 
