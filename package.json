@@ -1,0 +1,20 @@
+{
+  "name": "jonathanranchin_5_22042021",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000J\u0000o\u0000n\u0000a\u0000t\u0000h\u0000a\u0000n\u0000R\u0000a\u0000n\u0000c\u0000h\u0000i\u0000n\u0000_\u00005\u0000_\u00002\u00002\u00000\u00004\u00002\u00000\u00002\u00001\u0000\r\u0000 \u0000#\u0000 \u0000J\u0000o\u0000n\u0000a\u0000t\u0000h\u0000a\u0000n\u0000R\u0000a\u0000n\u0000c\u0000h\u0000i\u0000n\u0000_\u00005\u0000_\u00002\u00002\u00000\u00004\u00002\u00000\u00002\u00001\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathanranchin/JonathanRanchin_5_22042021.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonathanranchin/JonathanRanchin_5_22042021/issues"
+  },
+  "homepage": "https://github.com/jonathanranchin/JonathanRanchin_5_22042021#readme"
+}

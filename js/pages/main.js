@@ -1,11 +1,3 @@
-import Router from "./cart";
-const router = new Router({  
-    mode: history,
-    root: './index.html'
-});
-    rooter.add('','11');
-    console.log(flush(router));
-
 const section = document.getElementById("object-container");
 const productSection = document.getElementById("chosen-product");
 const main = document.querySelector("main");
@@ -16,8 +8,6 @@ var cart = [];
 window.onload = () => {
     callApi();    
     setUpStorage(cart);
-    objectCreator (useApi(null, "GET", apiUrl, null));
-    objectCreator (useApi("5be9c8541c9d440000665243", "GET", apiUrl, '/'));
 }
 
 
@@ -43,7 +33,7 @@ function objectCreator (data) {
                 tab[i].description,
                 tab[i]._id
             ));
-            addButtonListenersAdder(tab[i]._id);
+            addButtonListenersAdder(tab[i]._id, tab[i].name);
         }
     } else if(String(data)) {
         console.log(data);    
@@ -53,10 +43,10 @@ function objectCreator (data) {
 }
 
 //Function  to create the article which will fill the dynamic section
-function createNewFlexbox(name, url, colors, price, description,id) {
+function createNewFlexbox (name, url, colors, price, description,id) {
     let article = document.createElement("article");
     //Adding image elements
-    article.appendChild(createElementImg(url))
+    article.appendChild(createElementImg(url));
     
     //Adding text elements
     price /= 100;
@@ -71,24 +61,41 @@ function createNewFlexbox(name, url, colors, price, description,id) {
 }
 
 //Function to build text elements
-function createElementPart(type, content, id) {
+function createElementPart (type, content, id) {
+    //Create basic elements
+    let aElement = document.createElement("a");
     let element = document.createElement(type);
     element.textContent = content;
-    if(type == "button") {
+
+    //Special element creato for differentited buttons
+    if (type == "button") {
         element.classList.add("button");
         element.setAttribute("id", id);
-        if(id=="cart-button"){
-            element.setAttribute("href","cart.html");
-        } else if (id=="home") {
-            element.setAttribute("href","index.html");
+        if (id == "cart-button"){
+            aElement.setAttribute("href","cart.html");
+        } else if (id == "home") {
+            aElement.setAttribute("href","index.html");
+        } else if (id == content) {
+            content = '';
+            let color = String(id);
+            color = color.toLowerCase();
+            for (let i = 0; i < color.length; i++) {
+                if(color.charAt(i) == ' ') {
+                    var index = i;
+                    color = color.substring(index + 1)
+                }
+            }
+            element.setAttribute("class", "color");
+            element.setAttribute("style", "background:" + color+';' + "border: "+color +" solid 10px;"+ " padding: 10px");
+            element.textContent = '';
         }
     }
-    
-    return element;
+    aElement.appendChild(element);
+    return aElement;
 }
 
 //Function to build image elements
-function createElementImg(url) {
+function createElementImg (url) {
     let img = document.createElement("img");
     if (url !== undefined){
         img.setAttribute("src", url);
@@ -100,53 +107,43 @@ function createElementImg(url) {
 }
 
 //Function to add events to buttons on index's buttons
-function addButtonListenersAdder(id) {
+function addButtonListenersAdder (id,name) {
     document.getElementById(id).addEventListener('click', ($event) => {
         $event.preventDefault();
-        //Create New Page Dynamically
-        //window.location ... product/name/id ( name lower / utf16)
-        // If product onload -> récup id spawn page (par 'router')
-        window.location.replace("file:///C:/Users/abac/Documents/GitHub/JonathanRanchin_5_22042021/products.html"); 
-        //var idString = String(id);
-        //window.location.hash = idString;  
-        document.getElementById("object-container")
-            .classList
-            .add("disappear");
-        callApiForProduct(id).then(teddy => createChosenProductPageElements (teddy));
+        sessionStorage.setItem('productId', id);
+        sessionStorage.setItem('productName', name);
+        window.location = ("./products.html");
     });          
-}
-
-//Creates a section for a chosen product
-function createChosenProductPageElements (teddy) {
-    
-    document.getElementById(teddy._id).removeAttribute("id",teddy._id);
-    productSection.appendChild(createNewPage(
-                teddy.name, 
-                teddy.imageUrl, 
-                teddy.colors, 
-                teddy.price, 
-                teddy.description,
-                teddy._id
-        ));
-        addButtonListenersAdderCart(teddy.name,     
-            teddy.colors, 
-            teddy.price, 
-            teddy.description,
-            teddy._id);
-}    
+}  
 
 //Adds things to a chosen product's section
-function createNewPage(name,imageUrl,colors,price,description,id) {
+function createNewPage(name, imageUrl, colors, price, description, id) {
+    //Building the core elements for the chosen product
     let article = document.createElement("article");
     let divElement = document.createElement("span");
     divElement.setAttribute("id", "span");
-    
     article.appendChild(createElementImg(imageUrl)); 
     divElement.appendChild(createElementPart("h3", name));
-    divElement.appendChild(createElementPart("p", colors));
-    divElement.appendChild(createElementPart("p", description));
+    
+    //Creates the particular trait for the product (here it is a color for the teddies)
+    let colorSpan = document.createElement("span");
+    let colorArray = [];
+    for (let j = 0; j < colors.length; j++) {
+        colorSpan.appendChild(createElementPart("button", colors[j], colors[j]));
+        colorArray.push(colors[j]);
+        //addListenerForColorToCartStatus(colorArray[j]);
+        console.log(typeof(colors[j]));
+        console.log(colors[j]);
+        console.log(document.getElementById(String(colors[j])));
+    }
+    //Ajoute les couleurs à la boite créer
+    divElement.appendChild(createElementPart("p","Veuillez bien choisir une couleur :"));
+    divElement.appendChild(colorSpan);
+
+    //Building the different other product elements
+    divElement.appendChild(createElementPart("p", "Description : " + description));
     price /=100; price = price+ '€';
-    divElement.appendChild(createElementPart("p", price));
+    divElement.appendChild(createElementPart("p", "Prix : " + price));
     divElement.appendChild(createElementPart("button","Ajouter cet article à votre panier",id));
     divElement.appendChild(createElementPart("button","Revenir au menu principal","home"));
     
@@ -154,12 +151,15 @@ function createNewPage(name,imageUrl,colors,price,description,id) {
 
     return article;
 }
-//
-function addButtonListenersAdderCart(name,colors,price,description,id) {
+
+//Adds buttons to the page with a chosen product
+function addButtonListenersAdderCart (name, colors, price, description, id) {
     document.getElementById(id).addEventListener('click', ($event) => {
         $event.preventDefault();
-        cart.push(name,price);
-        
+        //cartContent.push[name,price];
+        console.log("Reached button on product page");
+        localStorage.setItem('productId', id);
+        localStorage.setItem('productName', name);
         //cart = myStorage;
         console.log(cart);
         if (!document.getElementById("cart-button")){
@@ -169,81 +169,12 @@ function addButtonListenersAdderCart(name,colors,price,description,id) {
     }); 
 }
 
-//Fetches a single product
-function callApiForProduct (id) {
-
-    return fetch(`${apiUrl}/${id}`)
-    .catch((error) => {
-      console.log(error)
-    })
-    .then((httpBodyResponse) => httpBodyResponse.json())
-    .then((productData) => productData)
-}
-
-//sets up the local storage necessary to store the products
-function setUpStorage(cart) {
+//Sets up the local storage necessary to store the products
+function setUpStorage () {
+    var cartContent = [];
+    localStorage.setItem('cart', cartContent);
     cart = window.localStorage;
     var cartValue = 0;
     localStorage.setItem('cartValueKey', cartValue);
 }
 
-
-function makeRequest(verb, url, data) {
-    return new Promise((resolve, reject) => {
-      let request = new XMLHttpRequest();
-      request.open(verb, url);
-      request.onreadystatechange = () => {
-        if (request.readyState === 4) {
-          if (request.status === 200 || request.status === 201) {
-            resolve(JSON.parse(request.response));
-          } else {
-            reject(JSON.parse(request.response));
-          }
-        }
-      };
-      if (verb === 'POST') {
-        request.setRequestHeader('Content-Type', 'application/json');
-        request.send(JSON.stringify(data));
-      } else {
-        request.send();
-      }
-    });
-  }
-    
-    
-
-  async function useApi(id,verb, url, car) {
-        if (verb==="GET") {
-            if (car ==='/' && id!=null) {
-                let getOne = makeRequest('GET', url + '/'+id);
-                getOne
-                console.log(getOne);
-                return getOne.then(token => { console.log(token) } )
-            } else {
-                let getAll = makeRequest('GET', url + '/');
-                console.log(getAll);
-                const getAllResponse = await getAll;
-                return getAllResponse;
-        }
-        }
-    
-    
-    /*
-    const [uidResponse, titleResponse, loremResponse] = await Promise.all([uidPromise, titlePromise, loremPromise]);  
-    
-    const postPromise = makeRequest('POST', api + "/create-post-with-uid", {
-      uid: uidResponse.uid,
-      title: titleResponse.title,
-      content: loremResponse.lorem
-    });
-    const postResponse = await postPromise;
-    
-    postTitle.textContent = postResponse.post.title;
-    postId.textContent = postResponse.post.id;
-    postContent.textContent = postResponse.post.content;
-    */
-  }
-  
-  //generateButton.addEventListener("click", () => {
-  //    createPost();
-  // });

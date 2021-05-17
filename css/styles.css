@@ -40,6 +40,12 @@ a {
     color: black; 
     text-decoration: none;
 }
+span a {
+    border-radius: 0px;
+    background-color: white;
+    color: inherit; 
+    text-decoration: none;
+}
 h1,
 h2 {
     padding-left: 26%;
@@ -72,7 +78,7 @@ section {
     font-weight: bolder;
 }
 button {
-    margin: 0px 38%;
+    margin: 8px 38%;
     padding: 10px;
     border-radius: 40px;
     background: linear-gradient(rgb(143,91,249),rgb(229,165,89));
@@ -90,11 +96,25 @@ button:hover {
     width: 40%;
     margin: 2px;
 }
+#span span {
+    display: flex;
+    flex-flow: row nowrap;
+}
+#span button {
+    margin: 20px;
+}
 #chosen-product article {
+    margin-top: 10px;
     display: flex;
     width: 100%;
+    background-color: rgb(242, 232, 240);
+    border-radius: 25px;
+}
+#chosen-product a {
+    background-color: rgb(242, 232, 240);
 }
 #chosen-product img {
+    border-radius: 25px;
     width: 50%;
     margin: 2%;
 } 
