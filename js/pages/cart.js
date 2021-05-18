@@ -3,38 +3,32 @@ var cartArea = document.getElementById("cart-area");
 window.onload = () => {
   var productInCart = localStorage.getItem('productIds');
   var productsdeletor = productInCart;
-  //console.log(productsdeletor);
-  var color = null;
-  for (let i = 0; i < productInCart.length; i++) {
-    if(productsdeletor!= null) {
-    if (productsdeletor.charAt(i) == ',') {
+  var color = null; 
+  for (let i = 1; i < (productInCart.length+1); i++) {
+      if (productsdeletor.charAt(i) == ',') {
         var index = i;
         color = productsdeletor.substring(0 , index)
         productsdeletor = productsdeletor.substring(index + 1);
-        //console.log(color);
-        //console.log(productsdeletor);
+        console.log(i);
         i = 0;
     }
-    if(productsdeletor.length=== 24) {
-      color = productsdeletor;
-      productsdeletor = null;
-      console.log("launched recovery");
+    if (i==productInCart.length) {
+      color = productsdeletor[i];
     }
-    console.log(color);
-    //console.log(productsdeletor);
-    if(color !=null) {
+    if (color !=null) {
+      console.log(productsdeletor);
       console.log("Load an object");
       callApiForProductCart(color).then(teddy => createChosenProductCartAppearence (teddy));   
+      if(productsdeletor.length==24) {
+        color = productsdeletor;
+        console.log("Load an object");
+        callApiForProductCart(color).then(teddy => createChosenProductCartAppearence (teddy));
+      }
       color= null;
-
     }
   }
 }
-  //productInCart.forEach(element => callApiForProductCart(element));  
-  console.log(productInCart);
-  console.log(typeof(productInCart[1]));
-  //callApiForProductCart().then(teddy => createChosenProductCartAppearence (teddy));
-}
+//Creates the cart objects
 function createChosenProductCartAppearence (teddy) {
   cartArea.appendChild(createNewPage(
               teddy.name, 
@@ -53,7 +47,6 @@ function createChosenProductCartAppearence (teddy) {
 
 //Fetches a single product used for products in the cart
 function callApiForProductCart (id) {
-
   return fetch(`${apiUrl}/${id}`)
   .catch((error) => {
     console.log(error)

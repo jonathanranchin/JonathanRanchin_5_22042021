@@ -115,9 +115,26 @@ button:hover {
 }
 #chosen-product img {
     border-radius: 25px;
-    width: 50%;
-    margin: 2%;
+    width: 40%;
+    margin: 8px;
 } 
 #cart-area img {
-    width: 33%;
+    border-radius: 35px;
+    width: 45%;
+    height: 400px;
+    margin: 5px;
+}
+#cart-area #span {
+    width: 50%;
+}
+#cart-area article {
+    display: flex;
+    background-color: rgb(242, 232, 240);
+    border-radius: 35px;
+    flex-flow: row wrap;
+    margin : 8px;
+    width: 65%;
+}
+#cart-area a {
+    background-color: rgb(242, 232, 240);
 }
