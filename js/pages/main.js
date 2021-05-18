@@ -6,8 +6,7 @@ var tab = null;
 var cart = [];
 
 window.onload = () => {
-    callApi();    
-    setUpStorage(cart);
+    callApi();      
 }
 
 
@@ -70,6 +69,7 @@ function createElementPart (type, content, id) {
     //Special element creato for differentited buttons
     if (type == "button") {
         element.classList.add("button");
+
         element.setAttribute("id", id);
         if (id == "cart-button"){
             aElement.setAttribute("href","cart.html");
@@ -131,12 +131,12 @@ function createNewPage(name, imageUrl, colors, price, description, id) {
     for (let j = 0; j < colors.length; j++) {
         colorSpan.appendChild(createElementPart("button", colors[j], colors[j]));
         colorArray.push(colors[j]);
-        //addListenerForColorToCartStatus(colorArray[j]);
-        console.log(typeof(colors[j]));
-        console.log(colors[j]);
-        console.log(document.getElementById(String(colors[j])));
     }
-    //Ajoute les couleurs à la boite créer
+    for (let i ; i < colorArray.length; i++) {
+        console.log(colorArray[i]);
+        addListenerForColorToCartStatus(colorArray[i]);
+    }
+    //Adds color to the created buttons
     divElement.appendChild(createElementPart("p","Veuillez bien choisir une couleur :"));
     divElement.appendChild(colorSpan);
 
@@ -156,25 +156,19 @@ function createNewPage(name, imageUrl, colors, price, description, id) {
 function addButtonListenersAdderCart (name, colors, price, description, id) {
     document.getElementById(id).addEventListener('click', ($event) => {
         $event.preventDefault();
-        //cartContent.push[name,price];
         console.log("Reached button on product page");
-        localStorage.setItem('productId', id);
-        localStorage.setItem('productName', name);
-        //cart = myStorage;
+        if(localStorage.getItem('productIds')!=null){
+            cart.push(localStorage.getItem('productIds'));
+        }
+        cart.push(id);
+        localStorage.setItem('productIds', cart);
+        localStorage.setItem('productNames', name);
         console.log(cart);
         if (!document.getElementById("cart-button")){
             let divElement = document.getElementById("span");
-            divElement.appendChild(createElementPart("button","Aller au Panier","cart-button"));
+            divElement.appendChild(createElementPart("button", "Aller au Panier", "cart-button"));
         } 
     }); 
 }
 
-//Sets up the local storage necessary to store the products
-function setUpStorage () {
-    var cartContent = [];
-    localStorage.setItem('cart', cartContent);
-    cart = window.localStorage;
-    var cartValue = 0;
-    localStorage.setItem('cartValueKey', cartValue);
-}
 

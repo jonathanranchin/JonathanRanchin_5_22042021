@@ -10,12 +10,17 @@ window.onload = () => {
 
 //Adds the listener for color selection for the chosen product
 function addListenerForColorToCartStatus (id) {
+    console.log("This has launched");
+    var el = document.getElementById(id);
+    if(el){
     document.getElementById(id).addEventListener('click', ($event) => {
     $event.preventDefault();
     console.log("This has worked");
     
     //return document.getElementById(id);
     });
+}   
+console.log("This has not worked");
 }
 
 //Creates a section for a chosen product on the product page hashtag

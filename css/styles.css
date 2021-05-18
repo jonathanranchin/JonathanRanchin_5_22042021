@@ -118,3 +118,6 @@ button:hover {
     width: 50%;
     margin: 2%;
 } 
+#cart-area img {
+    width: 33%;
+}
