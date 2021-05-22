@@ -3,6 +3,8 @@ var totalCost = 0;
 let map = new Map();  
 console.log(map);
 let mapnumber = 0;
+let quantity;
+
 window.onload = () => {
   
 var productInCart = localStorage.getItem('productIds');
@@ -18,21 +20,31 @@ var color = null;
         var index = i;
         color = productsdeletor.substring(0 , index)
         productsdeletor = productsdeletor.substring(index + 1);
+        console.log("Product found at base!" + productsdeletor)
         i = 0;
         }
+        /*
       if (i == productInCart.length) {
         color = productsdeletor[i];
-        
-      }
+        console.log("Product found at contingency 1!" + productsdeletor)
+      } */
       if (color != null) {
-        callApiForProductCart(color).then(teddy => createChosenProductCartAppearence (teddy));   
+        callApiForProductCart(color).then(teddy => createChosenProductCartAppearence (teddy));  
+        console.log("Product found at contingency 2!" + productsdeletor); 
         if (productsdeletor.length == 24) {
+          color = productsdeletor;
           callApiForProductCart(color).then(teddy => createChosenProductCartAppearence (teddy));                              
+          console.log("Product found at contingency 3!" + productsdeletor);
         }
       color= null;
     }
   }
   }
+}
+
+//Function to use the POST API parameter
+function orderButtonPost() {
+  
 }
 
 //sets the quantity not fully built
@@ -41,7 +53,7 @@ function quantityParameter(map, color) {
         mapnumber++;
         console.log(mapnumber+'D');
 }
-let quantity;
+
 //Creates the cart objects
 function createChosenProductCartAppearence (teddy) {
   //  if(document.getElementById(teddy._id) == null) {
@@ -67,6 +79,7 @@ function callApiForProductCart (id) {
   .then((productData) => productData)
 }
 
+//Will create the listners for the cart page
 function addButtonListenersCartItems (name, price, id) {
   document.getElementById(id).addEventListener('click', ($event) => {
       $event.preventDefault();
@@ -88,17 +101,16 @@ function addButtonListenersCartItems (name, price, id) {
   }); 
 }
 
+//This function creates the different cart elements
 function createNewCartItem(name, imageUrl, price, id, quantity) {
-  //Building the core elements for the chosen product
+  //Building the core elements for the cart product
   let article = document.createElement("article");
   article.setAttribute("id", imageUrl);
   let divElement = document.createElement("span");
   divElement.setAttribute("id", "span");
   article.appendChild(createElementImg(imageUrl)); 
   divElement.appendChild(createElementPart("h3", name+' '));
-  
 
-  //Building the different other product elements
   price /=100; price = price+ '€ ';
   divElement.appendChild(createElementPart("p", " Prix : " + price));
   divElement.appendChild(createElementPart("p"," Quantité : " + quantity));
