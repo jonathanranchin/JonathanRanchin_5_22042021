@@ -13,12 +13,14 @@
             <nav><a href="index.html"><span>Accueil</span><i class="fas fa-redo-alt"></i></a></nav>
         </header>
         <main> 
-            <h1>Vos articles sélectionés</h1>
             <section id="cart-area">
+                <h1>Vos articles sélectionés</h1>
             </section>
+            <div id="total-price">
+            </div>
             <section id="submit-sheet">
                 <h2>Passer votre commande</h2>
-                <div>
+                <div id="submit-sheet-div">
                     <div>
                       <label for="firstname" class="label">Prénom</label>
                       <input type="text" name="firstname" id="firstname" class="input" required />
@@ -45,15 +47,16 @@
                     </div>
                   </div>
                   <div class="flex justify-end">
-                    <a id="confirmPurchase" href="#">Procéder au paiement </a>
+                    <button id="confirmPurchase">Procéder au paiement </button>
                   </div>
             </section>
         </main>    
         <footer>
             <!-- Footer à créer --> 
         </footer>
+        <script src="./js/cart.obj.js"></script>  
         <script src="./js/pages/main.js"></script> 
         <script src="./js/pages/product.js"></script>
-        <script src="./js/pages/cart.js"></script> 
+        <script src="./js/pages/cart.js"></script>
     </body>
 </html>

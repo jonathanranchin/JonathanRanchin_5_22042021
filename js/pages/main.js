@@ -62,12 +62,13 @@ function createNewFlexbox (name, url, colors, price, description,id) {
 //Function to build text elements
 function createElementPart (type, content, id) {
     //Create basic elements
-    let aElement = document.createElement("a");
+    
     let element = document.createElement(type);
     element.textContent = content;
 
     //Special element creato for differentited buttons
     if (type == "button") {
+        let aElement = document.createElement("a");
         element.classList.add("button");
 
         element.setAttribute("id", id);
@@ -89,9 +90,10 @@ function createElementPart (type, content, id) {
             element.setAttribute("style", "background:" + color+';' + "border: "+color +" solid 10px;"+ " padding: 10px");
             element.textContent = '';
         }
+        aElement.appendChild(element);
+        return aElement;
     }
-    aElement.appendChild(element);
-    return aElement;
+    return element;
 }
 
 //Function to build image elements
@@ -116,50 +118,14 @@ function addButtonListenersAdder (id,name) {
     });          
 }  
 
-//Adds things to a chosen product's section
-function createNewPage(name, imageUrl, colors, price, description, id) {
-    //Building the core elements for the chosen product
-    let article = document.createElement("article");
-    let divElement = document.createElement("span");
-    divElement.setAttribute("id", "span");
-    article.appendChild(createElementImg(imageUrl)); 
-    divElement.appendChild(createElementPart("h3", name));
-    
-    //Creates the particular trait for the product (here it is a color for the teddies)
-    let colorSpan = document.createElement("span");
-    let colorArray = [];
-    for (let j = 0; j < colors.length; j++) {
-        colorSpan.appendChild(createElementPart("button", colors[j], colors[j]));
-        colorArray.push(colors[j]);
-    }
-    for (let i ; i < colorArray.length; i++) {
-        console.log(colorArray[i]);
-        addListenerForColorToCartStatus(colorArray[i]);
-    }
-    //Adds color to the created buttons
-    divElement.appendChild(createElementPart("p","Veuillez bien choisir une couleur :"));
-    divElement.appendChild(colorSpan);
-
-    //Building the different other product elements
-    divElement.appendChild(createElementPart("p", "Description : " + description));
-    price /=100; price = price+ '€';
-    divElement.appendChild(createElementPart("p", "Prix : " + price));
-    divElement.appendChild(createElementPart("button","Ajouter cet article à votre panier",id));
-    divElement.appendChild(createElementPart("button","Revenir au menu principal","home"));
-    
-    article.appendChild(divElement);
-
-    return article;
-}
-
 //Adds buttons to the page with a chosen product
-function addButtonListenersAdderCart (name, colors, price, description, id) {
+function addButtonListenersAdderCart (name, colors, price, description, id, teddy) {
     document.getElementById(id).addEventListener('click', ($event) => {
         $event.preventDefault();
-        console.log("Reached button on product page");
         if(localStorage.getItem('productIds')!=null){
             cart.push(localStorage.getItem('productIds'));
         }
+        Cart.addProduct(teddy);
         cart.push(id);
         localStorage.setItem('productIds', cart);
         localStorage.setItem('productNames', name);
@@ -168,6 +134,7 @@ function addButtonListenersAdderCart (name, colors, price, description, id) {
             let divElement = document.getElementById("span");
             divElement.appendChild(createElementPart("button", "Aller au Panier", "cart-button"));
         } 
+
     }); 
 }
 

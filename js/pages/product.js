@@ -8,6 +8,48 @@ window.onload = () => {
     callApiForProduct(productId).then(teddy => createChosenProductPageElements (teddy));
 }
 
+//Adds things to a chosen product's section
+function createNewPage(name, imageUrl, colors, price, description, id) {
+    //Building the core elements for the chosen product
+    let article = document.createElement("article");
+    let divElement = document.createElement("span");
+    divElement.setAttribute("id", "span");
+    article.appendChild(createElementImg(imageUrl)); 
+    divElement.appendChild(createElementPart("h3", name));
+    
+    //Creates the particular trait for the product (here it is a color for the teddies)
+    let colorArray = [];
+    let selectElement = document.createElement("select");
+    selectElement.id = "mySelect";
+    divElement.appendChild(selectElement);
+    for (let j = 0; j < colors.length; j++) {
+        var option = document.createElement("option");
+        option.value = colors[j];
+        option.text = colors[j];
+        selectElement.appendChild(option);  
+        colorArray.push(colors[j]);
+    }
+    for (let i = 0; i < colorArray.length; i++) {
+        console.log(colorArray[i]);
+        addListenerForColorToCartStatus(colorArray[i]);
+    }  
+
+    //Adds color to the created buttons
+    divElement.appendChild(createElementPart("p","Veuillez bien choisir une couleur :"));
+    divElement.appendChild(selectElement);
+
+    //Building the different other product elements
+    divElement.appendChild(createElementPart("p", "Description : " + description));
+    price /=100; price = price+ '€';
+    divElement.appendChild(createElementPart("p", "Prix : " + price));
+    divElement.appendChild(createElementPart("button","Ajouter cet article à votre panier",id));
+    divElement.appendChild(createElementPart("button","Revenir au menu principal","home"));
+    
+    article.appendChild(divElement);
+
+    return article;
+}
+
 //Adds the listener for color selection for the chosen product
 function addListenerForColorToCartStatus (id) {
     console.log("This has launched");
@@ -37,7 +79,8 @@ function createChosenProductPageElements (teddy) {
             teddy.colors, 
             teddy.price, 
             teddy.description,
-            teddy._id);
+            teddy._id, 
+            teddy);
 }  
 
 //Fetches a single productused on product hashes
