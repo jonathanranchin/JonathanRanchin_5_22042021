@@ -1,7 +1,6 @@
 window.onload = () => {
     var productId = sessionStorage.getItem('productId');
     var productName = sessionStorage.getItem('productName');
-    let url = window.location.href;
     productName = productName.toLowerCase();
     window.location.hash = '/teddies/' + productName + '/' + productId;
     

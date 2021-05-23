@@ -30,6 +30,7 @@ window.onload = () => {
   }
   }
   totalPrice.appendChild(createElementPart("h3", " Prix Total de votre commande : " + Cart.getTotalPrice()+ '.00€'));
+  addEventListeners();
 }
 
 //Creates the cart objects
@@ -102,3 +103,66 @@ function createNewCartItem(name, imageUrl, price, id, quantity) {
   return article;
 }
 
+//Function to use the POST API parameter
+function orderButtonPost() {
+
+  //Creates the elements from the html submit-sheet
+  const firstname = document.getElementById('firstname').value;
+  const lastname = document.getElementById('lastname').value;
+  const adress = document.getElementById('adress').value;
+  const city = document.getElementById('city').value;
+  const email = document.getElementById('email').value;
+/*
+  //Creates order we are going to post
+  let products = Object.values(Cart.products).map((product) => {
+    return product._id
+  })
+  console.log(products);
+ // products = products.toString()
+
+  const order = {
+    contact: {
+      firstName: firstname,
+      lastName: lastname,
+      address: adress,
+      city: city,
+      email: email,
+    },
+    products: products,
+  }
+  */
+ const order = {
+    contact: {
+      firstName: "John",
+      lastName: "Smith",
+      address: "12 Wheelbarrow Way",
+      city: "London",
+      email: "John.Smith@Web.co.eu"
+    },
+    products: ["5be9c8541c9d440000665243"],
+  }
+  console.log(order);  
+
+  //Request and Post
+  const requestOptions = {
+    method: 'POST',
+    body: JSON.stringify(order),
+  }
+  fetch(`${apiUrl}/${order}`, requestOptions)
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json)
+      localStorage.removeItem('shoppingCart')
+      //Setup here a location mover to final page
+    });
+
+}
+
+function addEventListeners() {
+  // Purchase button
+  document.getElementById('confirmPurchase').onclick = ($event) => {
+    $event.preventDefault();
+    orderButtonPost();
+    console.log("Order sender called");
+  }
+}

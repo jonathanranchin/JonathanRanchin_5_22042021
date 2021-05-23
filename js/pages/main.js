@@ -137,5 +137,3 @@ function addButtonListenersAdderCart (name, colors, price, description, id, tedd
 
     }); 
 }
-
-
