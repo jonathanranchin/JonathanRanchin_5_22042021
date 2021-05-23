@@ -1,6 +1,7 @@
 html {
     font-family: 'Podkova','Arial', 'Times';
 }
+
 body,
 main {
     display: flex;
@@ -8,19 +9,23 @@ main {
     max-width: 100%;
     justify-content: center;
 }
+
 .disappear {
     display: none;
 }
+
 header {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
 }
+
 header img {
     width: 170px;
     height: 100px;
     border-radius: 25px;
 }
+
 nav {
     display: flex;
     flex-flow: column nowrap;
@@ -29,34 +34,44 @@ nav {
     height: 100px;
     font-size: 35px;
 }
+
 nav a{
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     padding: 10px 9px 8px 7px;
 }
+
 a {
     border-radius: 25px;
     background-color: rgb(242, 232, 240);
     color: black; 
     text-decoration: none;
 }
+
 span a {
     border-radius: 0px;
     background-color: white;
     color: inherit; 
     text-decoration: none;
 }
+
 h1,
 h2 {
     padding-left: 26%;
     padding-right: 20%;
 }
+
+h3 {
+    padding-right: 20%;
+}
+
 section {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
 }
+
 #object-container article {
     width : 30%;
     border-radius: 40px;
@@ -64,20 +79,24 @@ section {
     background-color: rgb(242, 232, 240);
     padding-bottom: 2%;
 }
+
 #object-container img {
     max-width: 99%;
     border-radius: 40px;
     padding: 2px;
 }
+
 #object-container p {
     font-weight: lighter;
     padding: 6px;
 }
+
 #object-container h3 {
     padding-left: 40%;
     padding-right: 40%;
     font-weight: bolder;
 }
+
 button {
     margin: 8px 38%;
     padding: 10px;
@@ -86,25 +105,31 @@ button {
     border: thin rgb(242, 232, 240);
     font-family: 'Podkova','Arial', 'Times';
 }
+
 button:hover {
     transform: scale(1.1);
 }
+
 #chosen-product {
     max-width: 97%;
     flex-flow: row wrap;
     justify-content: space-between;
 }
+
 #chosen-product span {
     width: 40%;
     margin: 2px;
 }
+
 #span span {
     display: flex;
     flex-flow: row nowrap;
 }
+
 #span button {
     margin: 20px;
 }
+
 #chosen-product article {
     margin-top: 10px;
     display: flex;
@@ -112,52 +137,72 @@ button:hover {
     background-color: rgb(242, 232, 240);
     border-radius: 25px;
 }
+
 #chosen-product a {
     background-color: rgb(242, 232, 240);
 }
+
 #chosen-product img {
     border-radius: 25px;
     width: 40%;
     margin: 8px;
+}
+
+#cart-area {
+    display: flex;
+    justify-content: center;
+}
+
+#cart-area h3 {
+    padding-left: 26%;
+    padding-right: 20%;
 } 
+
 #cart-area img {
     border-radius: 35px;
-    width: 10%;
-    height: 60px;
+    width: 13%;
+    height: 90%;
     margin: 5px;
 }
+
 #cart-area #span {
     width: 100%;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: space-evenly;
     align-items: baseline;
 }
+
 #cart-area #span button {
     margin: 8px;
 }
+
 #cart-area #span h3 {
     margin-right: 1%;
 }
+
 #cart-area article {
     display: flex;
     background-color: rgb(242, 232, 240);
     border-radius: 35px;
     flex-flow: row nowrap;
     margin : 8px;
-    width: 70%;
+    width: 65%;
     justify-content: flex-start;
 }
+
 #cart-area a {
     background-color: rgb(242, 232, 240);
 }
+
 #submit-sheet,
 #submit-sheet-div {
-display: flex;
-flex-flow: row wrap;
-justify-content: center;
-justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    justify-content: center;
 }
+
 #submit-sheet-div div {
     margin: 10px;
 }

@@ -29,13 +29,15 @@ window.onload = () => {
     }
   }
   }
-  totalPrice.appendChild(createElementPart("h3", " Prix Total de votre commande : " + Cart.getTotalPrice()+ "€"));
+  totalPrice.appendChild(createElementPart("h3", " Prix Total de votre commande : " + Cart.getTotalPrice()+ '.00€'));
 }
 
 //Creates the cart objects
 function createChosenProductCartAppearence (teddy) {
   if (document.getElementById(teddy._id) == null) {
+    if (Cart.getProductQuantity(teddy._id)!=0) {
     quantity = Cart.getProductQuantity(teddy._id);
+    if (quantity) {
     cartArea.appendChild(createNewCartItem(
               teddy.name, 
               teddy.imageUrl,  
@@ -43,6 +45,8 @@ function createChosenProductCartAppearence (teddy) {
               teddy._id,
               quantity
     ));
+    }
+    }
     //  addButtonListenersCartItems(teddy.name, teddy.price, teddy._id);
   } 
 } 
@@ -67,9 +71,30 @@ function createNewCartItem(name, imageUrl, price, id, quantity) {
   article.appendChild(createElementImg(imageUrl)); 
   divElement.appendChild(createElementPart("h3", name+' '));
 
-  price /=100; price = price+ '€ ';
-  divElement.appendChild(createElementPart("p", " Prix : " + price));
-  divElement.appendChild(createElementPart("p"," Quantité : " + quantity));
+  price /= 100;
+  divElement.appendChild(createElementPart("p", " Prix : " + price + '.00€'));
+  divElement.appendChild(createElementPart("p", " Quantité : " + quantity));
+  let selectElement = document.createElement("select");
+  divElement.appendChild(selectElement);
+  
+  for (let j = 0; j < (quantity + 5); j++) {
+      var option = document.createElement("option");
+      option.value = j;
+      option.text = j;
+      if (j == quantity) {
+        option.setAttribute("selected", quantity);
+      }
+      selectElement.appendChild(option);  
+      if ( j == quantity + 5) {
+        j = 0; 
+      }
+  }
+  
+  selectElement.addEventListener('change', function() {
+    Cart.updateProductQuantity(id, this.value);
+    location.reload();
+    });
+
   divElement.appendChild(createElementPart("p", " Référence : " + id));
   
   article.appendChild(divElement);

@@ -1,6 +1,8 @@
 class CartObject {
+    
     get products() {
-      return JSON.parse(localStorage.getItem('shoppingCart') || '{}')
+      
+        return JSON.parse(localStorage.getItem('shoppingCart') || '{}')
     }
   
     set products(products) {
@@ -28,12 +30,20 @@ class CartObject {
   
     getProductQuantity(productId) {
       const products = this.products
-      return products[productId].quantity
+        if (products[productId]) {
+        return products[productId].quantity
+        }
+        return false;
     }
   
     updateProductQuantity(productId, quantity) {
-      const products = this.products
+      let products = this.products
       products[productId].quantity = quantity
+      if (quantity == 0) {
+        delete products[productId]
+        cartArea.removeChild(document.getElementById(productId))
+        location.reload()
+      }
       console.log(products)
       this.products = products
     }
@@ -41,8 +51,10 @@ class CartObject {
     getTotalPrice() {
       const products = this.products
       const totalPrice = Object.values(products).reduce((acc, curr) => {
+        
         return acc + (curr.price * curr.quantity) / 100
       }, 0)
+      
       return totalPrice
     }
   }
