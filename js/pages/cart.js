@@ -156,6 +156,5 @@ function addEventListeners() {
   document.getElementById('confirmPurchase').onclick = ($event) => {
     $event.preventDefault();
     orderButtonPost();
-    console.log("Order sender called");
   }
 }

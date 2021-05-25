@@ -181,6 +181,7 @@ button:hover {
     margin-right: 1%;
 }
 
+#order-recap article,
 #cart-area article {
     display: flex;
     background-color: rgb(242, 232, 240);
@@ -189,6 +190,10 @@ button:hover {
     margin : 8px;
     width: 65%;
     justify-content: flex-start;
+}
+
+#order-recap article {
+    justify-content: center;
 }
 
 #cart-area a {
