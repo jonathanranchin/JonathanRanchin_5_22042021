@@ -113,6 +113,28 @@ function orderButtonPost() {
   const city = document.getElementById('city').value;
   const email = document.getElementById('email').value;
 
+  if (!(
+    firstname.length > 1
+    && lastname.length > 1
+    && validateEmail(email)==true
+    && adress.length > 6
+    && city.length > 1
+  )) {
+    alert("Veuillez remplir les champs correctements avant de procéder au paiement")
+    return
+  }
+
+  function validateEmail(value) {
+    var input = document.createElement('input');
+  
+    input.type = 'email';
+    input.required = true;
+    input.value = value;
+  
+    return typeof input.checkValidity === 'function' ? input.checkValidity() : /\S+@\S+\.\S+/.test(value);
+  }
+
+
   //Creates order we are going to post
   let products = Object.values(Cart.products).map((product) => {
     return product._id
@@ -133,8 +155,8 @@ function orderButtonPost() {
   const requestOptions = {
     method: 'POST',
     body: JSON.stringify({
-      contact: contact, //Données de l'utilisateur sous forme d'objet
-      products: products, //Tableau des productId
+      contact: contact, //User information
+      products: products, //Object containing all the productIds from the order
   }),
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
     }
@@ -143,7 +165,8 @@ function orderButtonPost() {
     .then((json) => {
       console.log(json)
       localStorage.setItem("orderKey",json.orderId);
-      localStorage.removeItem('shoppingCart')
+      localStorage.removeItem('shoppingCart');
+      localStorage.removeItem('productIds');
       window.location = ("./post-order.html");
     })
     .catch(() => {
