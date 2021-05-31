@@ -1,3 +1,4 @@
+//Finds the needed data and spawns the dinamic page elements
 window.onload = () => {
     var productId = sessionStorage.getItem('productId');
     var productName = sessionStorage.getItem('productName');
@@ -49,7 +50,8 @@ function createNewPage(name, imageUrl, colors, price, description, id) {
     return article;
 }
 
-//Adds the listener for color selection for the chosen product
+//Adds the listener for color selection for the chosen product. This is an experimental function
+//It is not functional and the sever cannot reconize it anyway
 function addListenerForColorToCartStatus (id) {
     console.log("This has launched");
     var el = document.getElementById(id);
@@ -64,7 +66,7 @@ function addListenerForColorToCartStatus (id) {
 console.log("This has not worked");
 }
 
-//Creates a section for a chosen product on the product page hashtag
+//Creates a section for a chosen product on the product page hash
 function createChosenProductPageElements (teddy) {
     productSection.appendChild(createNewPage(
                 teddy.name, 

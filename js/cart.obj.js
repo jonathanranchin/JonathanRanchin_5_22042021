@@ -1,14 +1,17 @@
+//Cart object which the user will add to and delete at his convinience
 class CartObject {
     
+    //Simple getter and setter
     get products() {
       
         return JSON.parse(localStorage.getItem('shoppingCart') || '{}')
     }
-  
+    
     set products(products) {
       localStorage.setItem('shoppingCart', JSON.stringify(products))
     }
     
+    //Modifier to add things to the cart
     addProduct(productObject) {
       let products = this.products
   
@@ -27,7 +30,8 @@ class CartObject {
   
       this.products = products
     }
-  
+    
+    //Function to get teh quantity of a product with its id
     getProductQuantity(productId) {
       const products = this.products
         if (products[productId]) {
@@ -35,7 +39,8 @@ class CartObject {
         }
         return false;
     }
-  
+    
+    //Function to update quantity dynamically
     updateProductQuantity(productId, quantity) {
       let products = this.products
       products[productId].quantity = quantity
@@ -47,7 +52,8 @@ class CartObject {
       console.log(products)
       this.products = products
     }
-  
+    
+    //Function to find the total cart price
     getTotalPrice() {
       const products = this.products
       const totalPrice = Object.values(products).reduce((acc, curr) => {
@@ -59,4 +65,5 @@ class CartObject {
     }
   }
   
+  //The cart object we will be using
   const Cart = new CartObject();

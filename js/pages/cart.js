@@ -1,13 +1,16 @@
+//DOM needed sections references
 var cartArea = document.getElementById("cart-area");
 let quantity;
 var totalPrice = document.getElementById("total-price");
 
+//Dynamic page onload
 window.onload = () => {
   console.log(Cart);
   var productInCart = localStorage.getItem('productIds');
   var productsdeletor = productInCart;
   var idval = null;
 
+  //Fills the cart page with carted objects or tells the user that the cart is still empty  
   if(productInCart == null) {
     console.log("Vous n'avez pas encore selectionné d'article");
     cartArea.appendChild(createElementPart("h3", "Vous n'avez pas encore selectionné d'article!"));
@@ -33,7 +36,7 @@ window.onload = () => {
   addEventListeners();
 }
 
-//Creates the cart objects
+//Function which calls others to create the cart objects
 function createChosenProductCartAppearence (teddy) {
   if (document.getElementById(teddy._id) == null) {
     if (Cart.getProductQuantity(teddy._id)!=0) {
@@ -48,7 +51,6 @@ function createChosenProductCartAppearence (teddy) {
     ));
     }
     }
-    //  addButtonListenersCartItems(teddy.name, teddy.price, teddy._id);
   } 
 } 
 
@@ -62,7 +64,7 @@ function callApiForProductCart (id) {
   .then((productData) => productData)
 }
 
-//This function creates the different cart elements
+//This function creates the different cart elements and gives them the listeners they will need
 function createNewCartItem(name, imageUrl, price, id, quantity) {
   //Building the core elements for the cart product
   let article = document.createElement("article");
@@ -78,6 +80,7 @@ function createNewCartItem(name, imageUrl, price, id, quantity) {
   let selectElement = document.createElement("select");
   divElement.appendChild(selectElement);
   
+  //Adds quantities close to the one chosen to the drag down menu for quantity
   for (let j = 0; j < (quantity + 5); j++) {
       var option = document.createElement("option");
       option.value = j;
@@ -91,6 +94,7 @@ function createNewCartItem(name, imageUrl, price, id, quantity) {
       }
   }
   
+  //updates the page if the quantity of a product is changed
   selectElement.addEventListener('change', function() {
     Cart.updateProductQuantity(id, this.value);
     location.reload();
@@ -113,6 +117,7 @@ function orderButtonPost() {
   const city = document.getElementById('city').value;
   const email = document.getElementById('email').value;
 
+  //Minimal checks to see if the fields have been filled
   if (!(
     firstname.length > 1
     && lastname.length > 1
@@ -121,9 +126,11 @@ function orderButtonPost() {
     && city.length > 1
   )) {
     alert("Veuillez remplir les champs correctements avant de procéder au paiement")
+
     return
   }
 
+  //Standard function to check if the given email address is a valid address
   function validateEmail(value) {
     var input = document.createElement('input');
   
@@ -134,14 +141,20 @@ function orderButtonPost() {
     return typeof input.checkValidity === 'function' ? input.checkValidity() : /\S+@\S+\.\S+/.test(value);
   }
 
-
   //Creates order we are going to post
   let products = Object.values(Cart.products).map((product) => {
     return product._id
   })
+
+  //Checks if there are products in the cart before going onto the post-order page
   console.log(products);
- // products = products.toString()
-  
+  if (products.length==0) {
+
+    alert("Veuillez ajouter des produit avant de procéder au paiement")
+
+    return
+  }
+
   contact = {
     firstName: firstname,
     lastName: lastname,
@@ -150,8 +163,9 @@ function orderButtonPost() {
     email: email,
   },
   
-  console.log(contact)
-  
+  console.log(contact);
+
+  //Post the contact object and the products array to the API
   const requestOptions = {
     method: 'POST',
     body: JSON.stringify({
@@ -174,6 +188,7 @@ function orderButtonPost() {
   })
 }
 
+//Adds the event listener to allow the order function to be launched
 function addEventListeners() {
   // Purchase button
   document.getElementById('confirmPurchase').onclick = ($event) => {

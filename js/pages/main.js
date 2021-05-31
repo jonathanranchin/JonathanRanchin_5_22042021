@@ -5,11 +5,12 @@ const apiUrl = "http://localhost:3000/api/teddies";
 var tab = null;
 var cart = [];
 
+//Loads the page
 window.onload = () => {
     callApi();      
 }
 
-
+//This calls the API to get the data to populate the page
 function callApi () {
     fetch(apiUrl)
         .then(response => response.json())
@@ -19,7 +20,7 @@ function callApi () {
     );
 }
 
-// Function to take the Json element and breaks them into single enteties
+// Function which takes the Json element and breaks them into single enteties
 function objectCreator (data) {
     if (Array.isArray(data)) {
         tab = Array.from(data);
@@ -41,7 +42,7 @@ function objectCreator (data) {
     } 
 }
 
-//Function  to create the article which will fill the dynamic section
+//Function  to create the article which will fill the dynamic sections they need
 function createNewFlexbox (name, url, colors, price, description,id) {
     let article = document.createElement("article");
     //Adding image elements
@@ -50,9 +51,6 @@ function createNewFlexbox (name, url, colors, price, description,id) {
     //Adding text elements
     price /= 100;
     article.appendChild(createElementPart("h3", name));
-    article.appendChild(createElementPart("p", colors));
-    article.appendChild(createElementPart("p", description));
-    article.appendChild(createElementPart("p", price));
 
     article.appendChild(createElementPart("button", "Voir les détails", id));
 
