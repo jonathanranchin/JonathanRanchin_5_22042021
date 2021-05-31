@@ -186,6 +186,12 @@ button:hover {
 
 #order-recap article {
     justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+#order-recap p {
+    display: flex;
 }
 
 #cart-area a {

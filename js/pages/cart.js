@@ -80,7 +80,7 @@ function createNewCartItem(name, imageUrl, price, id, quantity) {
   let selectElement = document.createElement("select");
   divElement.appendChild(selectElement);
   
-  //Adds quantities close to the one chosen to the drag down menu for quantity
+  //Adds quantities closer to the one chosen, to a drag down menu
   for (let j = 0; j < (quantity + 5); j++) {
       var option = document.createElement("option");
       option.value = j;
@@ -150,7 +150,7 @@ function orderButtonPost() {
   console.log(products);
   if (products.length==0) {
 
-    alert("Veuillez ajouter des produit avant de procéder au paiement")
+    alert("Veuillez ajouter des produits avant de procéder au paiement")
 
     return
   }
@@ -178,6 +178,7 @@ function orderButtonPost() {
     .then((response) => response.json())
     .then((json) => {
       console.log(json)
+      sessionStorage.setItem("TotalPrice", Cart.getTotalPrice())
       localStorage.setItem("orderKey",json.orderId);
       localStorage.removeItem('shoppingCart');
       localStorage.removeItem('productIds');
