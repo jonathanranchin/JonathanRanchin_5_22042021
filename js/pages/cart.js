@@ -1,4 +1,4 @@
-//DOM needed sections references
+//DOM needed sections references (global)
 var cartArea = document.getElementById("cart-area");
 let quantity;
 var totalPrice = document.getElementById("total-price");
@@ -15,7 +15,6 @@ function pageOnload() {
 
   //Fills the cart page with carted objects or warns the user if the cart is still empty  
   if(productInCart == null) {
-    console.log("Vous n'avez pas encore selectionné d'article");
     cartArea.appendChild(createElementPart("h3", "Vous n'avez pas encore selectionné d'article!"));
   } else {
     for (let i = 1; i < (productInCart.length + 1); i++) {
@@ -155,7 +154,6 @@ function orderButtonPost() {
   })
 
   //Checks if there are products in the cart before going onto the post-order page
-  console.log(products);
   if (products.length==0) {
 
     alert("Veuillez ajouter des produits avant de procéder au paiement")
@@ -169,9 +167,7 @@ function orderButtonPost() {
     address: adress,
     city: city,
     email: email,
-  },
-  
-  console.log(contact);
+  };
 
   //Post the contact object and the products array to the API
   const requestOptions = {
@@ -185,7 +181,7 @@ function orderButtonPost() {
   fetch(apiUrl + '/order', requestOptions)
     .then((response) => response.json())
     .then((json) => {
-      console.log(json)
+  
       sessionStorage.setItem("TotalPrice", Cart.getTotalPrice())
       localStorage.setItem("orderKey",json.orderId);
       localStorage.removeItem('shoppingCart');

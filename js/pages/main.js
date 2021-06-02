@@ -127,7 +127,6 @@ function addButtonListenersAdderCart (name, colors, price, description, id, tedd
         cart.push(id);
         localStorage.setItem('productIds', cart);
         localStorage.setItem('productNames', name);
-        console.log(cart);
         if (!document.getElementById("cart-button")){
             let divElement = document.getElementById("span");
             divElement.appendChild(createElementPart("button", "Aller au Panier", "cart-button"));

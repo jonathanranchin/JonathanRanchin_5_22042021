@@ -49,7 +49,6 @@ class CartObject {
         cartArea.removeChild(document.getElementById(productId))
         location.reload()
       }
-      console.log(products)
       this.products = products
     }
     

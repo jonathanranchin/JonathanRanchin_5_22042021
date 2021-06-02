@@ -30,7 +30,6 @@ function createNewPage(name, imageUrl, colors, price, description, id) {
         colorArray.push(colors[j]);
     }
     for (let i = 0; i < colorArray.length; i++) {
-        console.log(colorArray[i]);
         addListenerForColorToCartStatus(colorArray[i]);
     }  
 
@@ -53,17 +52,12 @@ function createNewPage(name, imageUrl, colors, price, description, id) {
 //Adds the listener for color selection for the chosen product. This is an experimental function
 //It is not functional and the sever cannot reconize it anyway
 function addListenerForColorToCartStatus (id) {
-    console.log("This has launched");
     var el = document.getElementById(id);
     if(el){
     document.getElementById(id).addEventListener('click', ($event) => {
     $event.preventDefault();
-    console.log("This has worked");
-    
-    //return document.getElementById(id);
     });
 }   
-console.log("This has not worked");
 }
 
 //Creates a section for a chosen product on the product page hash
