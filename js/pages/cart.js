@@ -5,17 +5,24 @@ var totalPrice = document.getElementById("total-price");
 
 //Dynamic page onload
 window.onload = () => {
-  console.log(Cart);
+  pageOnload(); 
+}
+
+function pageOnload() {
   var productInCart = localStorage.getItem('productIds');
   var productsdeletor = productInCart;
   var idval = null;
 
-  //Fills the cart page with carted objects or tells the user that the cart is still empty  
+  //Fills the cart page with carted objects or warns the user if the cart is still empty  
   if(productInCart == null) {
     console.log("Vous n'avez pas encore selectionné d'article");
     cartArea.appendChild(createElementPart("h3", "Vous n'avez pas encore selectionné d'article!"));
   } else {
     for (let i = 1; i < (productInCart.length + 1); i++) {
+      if (productInCart.length == 24) {
+        callApiForProductCart(productInCart).then(teddy => createChosenProductCartAppearence (teddy));
+        break;
+      }
       if (productsdeletor.charAt(i) == ',') {
         var index = i;
         idval = productsdeletor.substring(0 , index)
@@ -35,6 +42,7 @@ window.onload = () => {
   totalPrice.appendChild(createElementPart("h3", " Prix Total de votre commande : " + Cart.getTotalPrice()+ '.00€'));
   addEventListeners();
 }
+
 
 //Function which calls others to create the cart objects
 function createChosenProductCartAppearence (teddy) {
@@ -118,10 +126,10 @@ function orderButtonPost() {
   const email = document.getElementById('email').value;
 
   //Minimal checks to see if the fields have been filled
-  if (!(
+  if ( false === (
     firstname.length > 1
     && lastname.length > 1
-    && validateEmail(email)==true
+    && validateEmail(email)
     && adress.length > 6
     && city.length > 1
   )) {
