@@ -10,10 +10,6 @@ main {
     justify-content: center;
 }
 
-.disappear {
-    display: none;
-}
-
 header {
     display: flex;
     flex-flow: row nowrap;
@@ -189,9 +185,13 @@ button:hover {
     flex-wrap: wrap;
 }
 
+#order-recap article {
+    justify-content: center;
+    flex-wrap: wrap;
+}
 
 #order-recap p {
-    display: flex;
+    margin: 5px;
 }
 
 #cart-area a {
@@ -218,6 +218,7 @@ button:hover {
     width: 25%;
     justify-content: baseline;
 }
+
 #submit-sheet-div div input,
 #submit-sheet-div div label {
     width: 100%;
@@ -230,4 +231,96 @@ button:hover {
 #total-price {
     display: flex;
     margin: 8px 30%;
+}
+
+@media only screen and (max-width: 768px) {
+    #submit-sheet-div div {
+        width: 40%;
+    }
+
+    #order-recap article,
+    #cart-area article {
+        width: 85%;
+    }
+    #cart-area article {
+        width: 95%;
+        flex-flow: column;
+        justify-content: center;
+    }
+
+    #cart-area img{
+        width: 98%;
+    }
+
+    #object-container article {
+        width : 44%;
+    }
+
+    #object-container {
+        justify-content: space-around;
+    }
+
+    body {
+        width: 98%;
+        margin: 0px;
+    }
+
+    header {
+        width: 100%;
+    }
+    
+    main {
+        width: 100%;
+    }
+
+    #chosen-product,
+    #chosen-product article {
+        width: 100%;
+        margin-left: 10px;
+    }
+
+}
+
+@media only screen and (max-width: 600px) {
+    #submit-sheet-div div {
+        width: 100%;
+    }
+
+    #cart-area article {
+        width: 95%;
+        flex-flow: column;
+        justify-content: center;
+    }
+
+    #cart-area img {
+        width: 98%;
+    }
+
+    #object-container article {
+        width : 98%;
+    }
+
+    #chosen-product {
+        width: 90%;
+    }
+
+    #chosen-product,
+    #chosen-product article {
+        flex-flow: column;
+    }
+
+    #chosen-product span {
+        width: 100%;
+        margin: 1%;
+    }
+
+    #chosen-product img {
+        width: 95%;
+    }
+
+    #order-recap article {
+        width: 94%;
+        height: 90px;
+        padding: 1%;
+    }
 }
