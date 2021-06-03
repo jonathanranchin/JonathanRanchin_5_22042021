@@ -34,15 +34,15 @@ function createNewPage(name, imageUrl, colors, price, description, id) {
     }  
 
     //Adds color to the created buttons
-    divElement.appendChild(createElementPart("p","Veuillez bien choisir une couleur :"));
+    divElement.appendChild(createElementPart("p", "Veuillez bien choisir une couleur :"));
     divElement.appendChild(selectElement);
 
     //Building the different other product elements
     divElement.appendChild(createElementPart("p", "Description : " + description));
-    price /=100; price = price+ '€';
+    price /= 100; price = price + '€';
     divElement.appendChild(createElementPart("p", "Prix : " + price));
-    divElement.appendChild(createElementPart("button","Ajouter cet article à votre panier",id));
-    divElement.appendChild(createElementPart("button","Revenir au menu principal","home"));
+    divElement.appendChild(createElementPart("button", "Ajouter cet article à votre panier", id));
+    divElement.appendChild(createElementPart("button", "Revenir au menu principal", "home"));
     
     article.appendChild(divElement);
 
@@ -53,7 +53,7 @@ function createNewPage(name, imageUrl, colors, price, description, id) {
 //It is not functional and the sever cannot reconize it anyway
 function addListenerForColorToCartStatus (id) {
     var el = document.getElementById(id);
-    if(el){
+    if (el){
     document.getElementById(id).addEventListener('click', ($event) => {
     $event.preventDefault();
     });

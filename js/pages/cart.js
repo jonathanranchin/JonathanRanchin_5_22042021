@@ -1,13 +1,13 @@
-//DOM needed sections references (global)
+//DOM needed sections references and variables (global)
 var cartArea = document.getElementById("cart-area");
 let quantity;
 var totalPrice = document.getElementById("total-price");
 
-//Dynamic page onload
 window.onload = () => {
   pageOnload(); 
 }
 
+//Dynamic page onload
 function pageOnload() {
   var productInCart = localStorage.getItem('productIds');
   var productsdeletor = productInCart;

@@ -1,3 +1,4 @@
+//DOM needed sections references and variables (global)
 const section = document.getElementById("object-container");
 const productSection = document.getElementById("chosen-product");
 const main = document.querySelector("main");
@@ -35,7 +36,7 @@ function objectCreator (data) {
             ));
             addButtonListenersAdder(tab[i]._id, tab[i].name);
         }
-    } else if(String(data)) {
+    } else if (String(data)) {
         console.log(data);    
     } else {
         console.log("Failure to load data.");
@@ -131,6 +132,5 @@ function addButtonListenersAdderCart (name, colors, price, description, id, tedd
             let divElement = document.getElementById("span");
             divElement.appendChild(createElementPart("button", "Aller au Panier", "cart-button"));
         } 
-
     }); 
 }
