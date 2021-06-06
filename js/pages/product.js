@@ -9,7 +9,7 @@ window.onload = () => {
 }
 
 //Adds things to a chosen product's section
-function createNewPage(name, imageUrl, colors, price, description, id) {
+function createNewPage (name, imageUrl, colors, price, description, id) {
     //Building the core elements for the chosen product
     let article = document.createElement("article");
     let divElement = document.createElement("span");
@@ -49,8 +49,8 @@ function createNewPage(name, imageUrl, colors, price, description, id) {
     return article;
 }
 
-//Adds the listener for color selection for the chosen product. This is an experimental function
-//It is not functional and the sever cannot reconize it anyway
+//Adds the listener for color selection for the chosen product.
+//This is an experimental function, it is not functional and the sever cannot reconize it anyway
 function addListenerForColorToCartStatus (id) {
     var el = document.getElementById(id);
     if (el){
@@ -77,6 +77,24 @@ function createChosenProductPageElements (teddy) {
             teddy._id, 
             teddy);
 }  
+
+//Adds buttons to the page with a chosen product
+function addButtonListenersAdderCart (name, colors, price, description, id, teddy) {
+    document.getElementById(id).addEventListener('click', ($event) => {
+        $event.preventDefault();
+        if(localStorage.getItem('productIds')!=null){
+            cart.push(localStorage.getItem('productIds'));
+        }
+        Cart.addProduct(teddy);
+        cart.push(id);
+        localStorage.setItem('productIds', cart);
+        localStorage.setItem('productNames', name);
+        if (!document.getElementById("cart-button")){
+            let divElement = document.getElementById("span");
+            divElement.appendChild(createElementPart("button", "Aller au Panier", "cart-button"));
+        } 
+    }); 
+}
 
 //Fetches a single productused on product hashes
 function callApiForProduct (id) {

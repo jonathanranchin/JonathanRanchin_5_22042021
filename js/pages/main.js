@@ -117,20 +117,4 @@ function addButtonListenersAdder (id,name) {
     });          
 }  
 
-//Adds buttons to the page with a chosen product
-function addButtonListenersAdderCart (name, colors, price, description, id, teddy) {
-    document.getElementById(id).addEventListener('click', ($event) => {
-        $event.preventDefault();
-        if(localStorage.getItem('productIds')!=null){
-            cart.push(localStorage.getItem('productIds'));
-        }
-        Cart.addProduct(teddy);
-        cart.push(id);
-        localStorage.setItem('productIds', cart);
-        localStorage.setItem('productNames', name);
-        if (!document.getElementById("cart-button")){
-            let divElement = document.getElementById("span");
-            divElement.appendChild(createElementPart("button", "Aller au Panier", "cart-button"));
-        } 
-    }); 
-}
+
