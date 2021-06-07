@@ -216,7 +216,7 @@ button:hover {
 #submit-sheet-div div {
     margin: 10px;
     width: 25%;
-    justify-content: baseline;
+    align-items: baseline;
 }
 
 #submit-sheet-div div input,

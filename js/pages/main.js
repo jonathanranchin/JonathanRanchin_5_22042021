@@ -101,7 +101,7 @@ function createElementImg (url) {
     if (url !== undefined){
         img.setAttribute("src", url);
     } else {
-        img.setAttribute("placeholder", "image not found");
+        img.setAttribute("alt", "image not found");
     }
 
     return img;
