@@ -41,8 +41,8 @@ function createNewPage (name, imageUrl, colors, price, description, id) {
     divElement.appendChild(createElementPart("p", "Description : " + description));
     price /= 100; price = price + '€';
     divElement.appendChild(createElementPart("p", "Prix : " + price));
-    divElement.appendChild(createElementPart("button", "Ajouter cet article à votre panier", id));
-    divElement.appendChild(createElementPart("button", "Revenir au menu principal", "home"));
+    divElement.appendChild(createElementPart("button", "Ajouter au panier", id));
+    divElement.appendChild(createElementPart("button", "Menu Principal", "home"));
     
     article.appendChild(divElement);
 
@@ -91,7 +91,7 @@ function addButtonListenersAdderCart (name, colors, price, description, id, tedd
         localStorage.setItem('productNames', name);
         if (!document.getElementById("cart-button")){
             let divElement = document.getElementById("span");
-            divElement.appendChild(createElementPart("button", "Aller au Panier", "cart-button"));
+            divElement.appendChild(createElementPart("button", "Aller au panier", "cart-button"));
         } 
     }); 
 }

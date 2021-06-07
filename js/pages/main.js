@@ -116,5 +116,3 @@ function addButtonListenersAdder (id,name) {
         window.location = ("./products.html");
     });          
 }  
-
-

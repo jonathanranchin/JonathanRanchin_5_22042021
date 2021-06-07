@@ -139,6 +139,7 @@ button:hover {
     border-radius: 25px;
     width: 40%;
     margin: 8px;
+    max-height: 100%;
 }
 
 #cart-area {
@@ -151,6 +152,7 @@ button:hover {
     width: 13%;
     height: 90%;
     margin: 5px;
+    object-fit: cover;
 }
 
 #cart-area #span {
@@ -162,7 +164,7 @@ button:hover {
 }
 
 #cart-area #span button {
-    margin: 8px;
+    margin: 5px;
 }
 
 #cart-area #span h3 {
