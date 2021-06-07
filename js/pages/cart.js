@@ -5,7 +5,7 @@ var totalPrice = document.getElementById("total-price");
 
 window.onload = () => {
   pageOnload(); 
-}
+};
 
 //Dynamic page onload
 function pageOnload() {
@@ -24,7 +24,7 @@ function pageOnload() {
       }
       if (productsdeletor.charAt(i) == ',') {
         var index = i;
-        idval = productsdeletor.substring(0 , index)
+        idval = productsdeletor.substring(0 , index);
         productsdeletor = productsdeletor.substring(index + 1);
         i = 0;
         }
@@ -65,7 +65,7 @@ function createChosenProductCartAppearence (teddy) {
 function callApiForProductCart (id) {
   return fetch(`${apiUrl}/${id}`)
   .catch((error) => {
-    console.log(error)
+    console.log(error);
   })
   .then((httpBodyResponse) => httpBodyResponse.json())
   .then((productData) => productData)
@@ -132,9 +132,9 @@ function orderButtonPost() {
     && adress.length > 6
     && city.length > 1
   )) {
-    alert("Veuillez remplir les champs correctements avant de procéder au paiement")
+    alert("Veuillez remplir les champs correctements avant de procéder au paiement");
 
-    return
+    return;
   }
 
   //Standard function to check if the given email address is a valid address
@@ -150,15 +150,15 @@ function orderButtonPost() {
 
   //Creates order we are going to post
   let products = Object.values(Cart.products).map((product) => {
-    return product._id
-  })
+    return product._id;
+  });
 
   //Checks if there are products in the cart before going onto the post-order page
   if (products.length==0) {
 
-    alert("Veuillez ajouter des produits avant de procéder au paiement")
+    alert("Veuillez ajouter des produits avant de procéder au paiement");
 
-    return
+    return;
   }
 
   contact = {
@@ -177,19 +177,19 @@ function orderButtonPost() {
       products: products, //Object containing all the productIds from the order
   }),
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
-    }
+    };
   fetch(apiUrl + '/order', requestOptions)
     .then((response) => response.json())
     .then((json) => {
   
-      sessionStorage.setItem("TotalPrice", Cart.getTotalPrice())
+      sessionStorage.setItem("TotalPrice", Cart.getTotalPrice());
       localStorage.setItem("orderKey",json.orderId);
       localStorage.removeItem('shoppingCart');
       localStorage.removeItem('productIds');
       window.location = ("./post-order.html");
     })
     .catch(() => {
-      alert(error)
+      alert(error);
   })
 }
 

@@ -6,7 +6,7 @@ window.onload = () => {
     window.location.hash = '/teddies/' + productName + '/' + productId;
     
     callApiForProduct(productId).then(teddy => createChosenProductPageElements (teddy));
-}
+};
 
 //Adds things to a chosen product's section
 function createNewPage (name, imageUrl, colors, price, description, id) {
@@ -101,7 +101,7 @@ function callApiForProduct (id) {
 
     return fetch(`${apiUrl}/${id}`)
     .catch((error) => {
-      console.log(error)
+      console.log(error);
     })
     .then((httpBodyResponse) => httpBodyResponse.json())
     .then((productData) => productData)

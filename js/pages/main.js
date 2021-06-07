@@ -9,7 +9,7 @@ var cart = [];
 //Loads the page
 window.onload = () => {
     callApi();      
-}
+};
 
 //This calls the API to get the data to populate the page
 function callApi () {
@@ -82,7 +82,7 @@ function createElementPart (type, content, id) {
             for (let i = 0; i < color.length; i++) {
                 if(color.charAt(i) == ' ') {
                     var index = i;
-                    color = color.substring(index + 1)
+                    color = color.substring(index + 1);
                 }
             }
             element.setAttribute("class", "color");

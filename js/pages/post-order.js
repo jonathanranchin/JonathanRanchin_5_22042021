@@ -5,7 +5,7 @@ window.onload = () => {
     if (false !== document.getElementsByClassName("article")) {
         orderRecapSectionCreator(orderRecap, sessionStorage.getItem("TotalPrice"));
     }
-}
+};
 
 //Gives the id and total price of the order dynamically 
 function orderRecapSectionCreator(orderRecap, orderPrice) {
