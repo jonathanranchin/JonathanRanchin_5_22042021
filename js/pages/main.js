@@ -28,13 +28,13 @@ function objectCreator (data) {
         for (var i = 0; i < tab.length; i++) {
             section.appendChild(createNewFlexbox(
                 tab[i].name, 
-                tab[i].imageUrl, 
-                tab[i].colors[0], 
+                tab[i].imageUrl,  
                 tab[i].price, 
                 tab[i].description,
                 tab[i]._id
             ));
             addButtonListenersAdder(tab[i]._id, tab[i].name);
+            addButtonListenersAdder(tab[i]._id, tab[i].name, tab[i].imageUrl);
         }
     } else if (String(data)) {
         console.log(data);    
@@ -44,14 +44,17 @@ function objectCreator (data) {
 }
 
 //Function  to create the article which will fill the dynamic sections they need
-function createNewFlexbox (name, url, colors, price, description,id) {
+function createNewFlexbox (name, url, price, description, id) {
     let article = document.createElement("article");
     //Adding image elements
     article.appendChild(createElementImg(url));
     
     //Adding text elements
-    price /= 100;
     article.appendChild(createElementPart("h3", name));
+    article.appendChild(createElementPart("p", description));
+    price /= 100; 
+    price = price + '€';
+    article.appendChild(createElementPart("p", "Prix : " + price));
 
     article.appendChild(createElementPart("button", "Voir les détails", id));
 
@@ -103,16 +106,26 @@ function createElementImg (url) {
     } else {
         img.setAttribute("alt", "image not found");
     }
+    img.setAttribute("id", url);
 
     return img;
 }
 
 //Function to add events to buttons on index's buttons
-function addButtonListenersAdder (id,name) {
-    document.getElementById(id).addEventListener('click', ($event) => {
-        $event.preventDefault();
-        sessionStorage.setItem('productId', id);
-        sessionStorage.setItem('productName', name);
-        window.location = ("./products.html");
-    });          
+function addButtonListenersAdder (id, name, img) {
+    if(img == null) {
+        document.getElementById(id).addEventListener('click', ($event) => {
+            $event.preventDefault();
+            sessionStorage.setItem('productId', id);
+            sessionStorage.setItem('productName', name);
+            window.location = ("./products.html");
+        });          
+    } else {
+        document.getElementById(img).addEventListener('click', ($event) => {
+            $event.preventDefault();
+            sessionStorage.setItem('productId', id);
+            sessionStorage.setItem('productName', name);
+            window.location = ("./products.html");
+        });  
+    }
 }  

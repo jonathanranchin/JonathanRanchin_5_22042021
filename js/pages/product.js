@@ -39,7 +39,8 @@ function createNewPage (name, imageUrl, colors, price, description, id) {
 
     //Building the different other product elements
     divElement.appendChild(createElementPart("p", "Description : " + description));
-    price /= 100; price = price + '€';
+    price /= 100; 
+    price = price + '€';
     divElement.appendChild(createElementPart("p", "Prix : " + price));
     divElement.appendChild(createElementPart("button", "Ajouter au panier", id));
     divElement.appendChild(createElementPart("button", "Menu Principal", "home"));
@@ -71,38 +72,54 @@ function createChosenProductPageElements (teddy) {
                 teddy._id
         ));
         addButtonListenersAdderCart(teddy.name,     
-            teddy.colors, 
-            teddy.price, 
-            teddy.description,
             teddy._id, 
             teddy);
+        addButtonListenersAdderCart(teddy.name,     
+            teddy._id, 
+            teddy,
+            teddy.imageUrl);
 }  
 
 //Adds buttons to the page with a chosen product
-function addButtonListenersAdderCart (name, colors, price, description, id, teddy) {
-    document.getElementById(id).addEventListener('click', ($event) => {
-        $event.preventDefault();
-        if(localStorage.getItem('productIds')!=null){
+function addButtonListenersAdderCart (name, id, teddy, img) {
+    if (img == null) {
+        document.getElementById(id).addEventListener('click', ($event) => {
+            $event.preventDefault();
+            if(localStorage.getItem('productIds')!=null){
             cart.push(localStorage.getItem('productIds'));
-        }
-        Cart.addProduct(teddy);
-        cart.push(id);
-        localStorage.setItem('productIds', cart);
-        localStorage.setItem('productNames', name);
-        if (!document.getElementById("cart-button")){
-            let divElement = document.getElementById("span");
-            divElement.appendChild(createElementPart("button", "Aller au panier", "cart-button"));
-        } 
-    }); 
+            }
+            Cart.addProduct(teddy);
+            cart.push(id);
+            localStorage.setItem('productIds', cart);
+            localStorage.setItem('productNames', name);
+            if (!document.getElementById("cart-button")){
+                let divElement = document.getElementById("span");
+                divElement.appendChild(createElementPart("button", "Aller au panier", "cart-button"));
+            } 
+        }); 
+    } else {
+        document.getElementById(img).addEventListener('click', ($event) => {
+            $event.preventDefault();
+            if(localStorage.getItem('productIds')!=null){
+            cart.push(localStorage.getItem('productIds'));
+            }
+            Cart.addProduct(teddy);
+            cart.push(id);
+            localStorage.setItem('productIds', cart);
+            localStorage.setItem('productNames', name);
+            if (!document.getElementById("cart-button")){
+                let divElement = document.getElementById("span");
+                divElement.appendChild(createElementPart("button", "Aller au panier", "cart-button"));
+            } 
+        }); 
+    }
 }
-
 //Fetches a single productused on product hashes
 function callApiForProduct (id) {
-
     return fetch(`${apiUrl}/${id}`)
-    .catch((error) => {
-      console.log(error);
-    })
-    .then((httpBodyResponse) => httpBodyResponse.json())
-    .then((productData) => productData)
+        .catch((error) => {
+            console.log(error);
+        })
+        .then((httpBodyResponse) => httpBodyResponse.json())
+        .then((productData) => productData)
 }
