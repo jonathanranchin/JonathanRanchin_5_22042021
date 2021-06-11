@@ -114,6 +114,7 @@ function addButtonListenersAdderCart (name, id, teddy, img) {
         }); 
     }
 }
+
 //Fetches a single productused on product hashes
 function callApiForProduct (id) {
     return fetch(`${apiUrl}/${id}`)
